@@ -5,7 +5,6 @@ import com.lambda.foodtrucktrackr.models.User;
 import com.lambda.foodtrucktrackr.models.UserRoles;
 import com.lambda.foodtrucktrackr.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
