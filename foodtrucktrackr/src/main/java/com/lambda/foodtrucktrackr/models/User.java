@@ -3,6 +3,8 @@ package com.lambda.foodtrucktrackr.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -12,11 +14,14 @@ import java.util.*;
 
 @Entity
 @Table(name = "users")
+@ApiModel(value = "User", description = "A user of the application")
 public class User extends Auditable {
+    @ApiModelProperty(name = "user id", value = "primary key for user", required = true, example="1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+    @ApiModelProperty(name = "username", value = "the username for this user", required = true, example="Tim")
     @Column(nullable = false, unique = true)
     private String username;
 

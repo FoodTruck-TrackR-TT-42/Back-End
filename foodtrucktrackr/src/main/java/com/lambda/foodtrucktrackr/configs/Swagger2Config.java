@@ -31,9 +31,8 @@ public class Swagger2Config
     {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors
-                        .basePackage("com.lambdaschool.usermodel"))
-                .paths(PathSelectors.regex("/.*"))
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiEndPointsInfo());
     }
@@ -45,11 +44,11 @@ public class Swagger2Config
      */
     private ApiInfo apiEndPointsInfo()
     {
-        return new ApiInfoBuilder().title("User Model Example")
-                .description("User Model Example")
-                .contact(new Contact("John Mitchell",
+        return new ApiInfoBuilder().title("Food Truck TrackR")
+                .description("An API for tracking food trucks for a project at Lambda School")
+                .contact(new Contact("Samuel Perrin",
                         "http://www.lambdaschool.com",
-                        "john@lambdaschool.com"))
+                        "samuel-perrin@lambdastudents.com"))
                 .license("MIT")
                 .licenseUrl("https://github.com/LambdaSchool/java-usermodel/blob/master/LICENSE")
                 .version("1.0.0")
