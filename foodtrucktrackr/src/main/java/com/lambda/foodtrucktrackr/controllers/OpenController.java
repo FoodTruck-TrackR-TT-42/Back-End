@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr.controllers;
 
 import com.lambda.foodtrucktrackr.models.User;
+import com.lambda.foodtrucktrackr.models.UserMinimum;
 import com.lambda.foodtrucktrackr.models.UserRoles;
 import com.lambda.foodtrucktrackr.services.RoleService;
 import com.lambda.foodtrucktrackr.services.UserService;
