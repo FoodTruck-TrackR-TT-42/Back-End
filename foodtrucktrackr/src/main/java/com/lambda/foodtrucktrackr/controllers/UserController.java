@@ -50,7 +50,7 @@ public class UserController {
             produces = "application/json")
     public ResponseEntity<?> getUserById(
             @PathVariable
-                    Long userId)
+            Long userId)
     {
         User u = userService.findUserById(userId);
         return new ResponseEntity<>(u,
@@ -69,7 +69,7 @@ public class UserController {
             produces = "application/json")
     public ResponseEntity<?> getUserByName(
             @PathVariable
-                    String userName)
+            String userName)
     {
         User u = userService.findByName(userName);
         return new ResponseEntity<>(u,
@@ -88,7 +88,7 @@ public class UserController {
             produces = "application/json")
     public ResponseEntity<?> getUserLikeName(
             @PathVariable
-                    String userName)
+            String userName)
     {
         List<User> u = userService.findByNameContaining(userName);
         return new ResponseEntity<>(u,
@@ -111,7 +111,7 @@ public class UserController {
     public ResponseEntity<?> addNewUser(
             @Valid
             @RequestBody
-                    User newuser) throws
+            User newuser) throws
             URISyntaxException
     {
         newuser.setUserid(0);
@@ -148,9 +148,9 @@ public class UserController {
     public ResponseEntity<?> updateFullUser(
             @Valid
             @RequestBody
-                    User updateUser,
+            User updateUser,
             @PathVariable
-                    long userid)
+            long userid)
     {
         updateUser.setUserid(userid);
         userService.save(updateUser);
@@ -173,9 +173,9 @@ public class UserController {
             consumes = "application/json")
     public ResponseEntity<?> updateUser(
             @RequestBody
-                    User updateUser,
+            User updateUser,
             @PathVariable
-                    long id)
+            long id)
     {
         userService.update(updateUser,
                 id);
@@ -192,7 +192,7 @@ public class UserController {
     @DeleteMapping(value = "/user/{id}")
     public ResponseEntity<?> deleteUserById(
             @PathVariable
-                    long id)
+            long id)
     {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
