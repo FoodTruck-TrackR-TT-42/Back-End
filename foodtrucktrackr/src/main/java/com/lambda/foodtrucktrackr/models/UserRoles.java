@@ -8,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "userroles")
 @IdClass(UserRolesId.class)
-public class UserRoles implements Serializable {
+public class UserRoles extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @JoinColumn(name = "userid")
