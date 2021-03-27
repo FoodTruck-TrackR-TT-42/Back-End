@@ -66,6 +66,10 @@ public class User extends Auditable {
         this.password = passwordEncoder.encode(password);
     }
 
+    public void setPasswordNoEncrypt(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }

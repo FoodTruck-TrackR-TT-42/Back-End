@@ -8,5 +8,5 @@ import java.util.List;
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
 
-//    List<User> findByUserNameContainingIgnoreCase(String name);
+    List<User> findByUsernameContainingIgnoreCase(String name);
 }
