@@ -1,5 +1,6 @@
 package com.lambda.foodtrucktrackr.services;
 
+import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
 import com.lambda.foodtrucktrackr.models.ValidationError;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.core.Authentication;
