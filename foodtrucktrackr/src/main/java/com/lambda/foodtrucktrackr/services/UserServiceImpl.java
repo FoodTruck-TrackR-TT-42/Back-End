@@ -1,5 +1,6 @@
 package com.lambda.foodtrucktrackr.services;
 
+import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
 import com.lambda.foodtrucktrackr.models.Role;
 import com.lambda.foodtrucktrackr.models.User;
 import com.lambda.foodtrucktrackr.models.UserRoles;
