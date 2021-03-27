@@ -1,8 +1,12 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.lambda.foodtrucktrackr.models.ErrorDetail;
 import com.lambda.foodtrucktrackr.models.User;
 import com.lambda.foodtrucktrackr.services.UserService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -29,6 +33,7 @@ public class UserController {
      * @return JSON list of all users with a status of OK
      * @see UserService#findAll() UserService.findAll()
      */
+    @ApiOperation(value = "Returns a list of User objects", response = User.class, responseContainer = "List")
     @GetMapping(value = "/users",
             produces = "application/json")
     public ResponseEntity<?> listAllUsers()
@@ -46,9 +51,13 @@ public class UserController {
      * @return JSON object of the user you seek
      * @see UserService#findUserById(long) UserService.findUserById(long)
      */
+    @ApiOperation(value = "Retrieves a user based off its user id", response = User.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "User found", response = User.class),
+                        @ApiResponse(code = 404, message = "User not found", response = ErrorDetail.class)})
     @GetMapping(value = "/user/{userId}",
             produces = "application/json")
     public ResponseEntity<?> getUserById(
+            @ApiParam(value = "user id", required = true, example = "4")
             @PathVariable
             Long userId)
     {
