@@ -19,7 +19,8 @@ public class TruckController {
     private TruckService truckService;
 
     @ApiOperation(value = "Returns a list of all Trucks", response = Truck.class, responseContainer = "List")
-    @GetMapping(value = "/trucks", produces = "application/json")
+    @GetMapping(value = "/trucks",
+            produces = "application/json")
     public ResponseEntity<?> listAllTrucks() {
         List<Truck> trucks = truckService.findAll();
         return new ResponseEntity<>(trucks, HttpStatus.OK);
