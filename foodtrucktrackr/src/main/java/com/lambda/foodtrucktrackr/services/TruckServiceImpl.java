@@ -35,8 +35,9 @@ public class TruckServiceImpl  implements TruckService {
     }
 
     @Override
-    public List<Truck> findTruckById(long id) {
-        return null;
+    public Truck findTruckById(long id) throws ResourceNotFoundException {
+        return truckrepos.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Truck id " + id + " not found!"));
     }
 
     @Override
@@ -46,7 +47,8 @@ public class TruckServiceImpl  implements TruckService {
 
     @Override
     public List<Truck> findTrucksByCuisineType(String cuisineType) {
-        return null;
+        List<Truck> trucks = truckrepos.findByCuisinetype(cuisineType);
+        return trucks;
     }
 
     @Transactional
