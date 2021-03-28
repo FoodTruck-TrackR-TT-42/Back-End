@@ -16,7 +16,7 @@ import java.util.*;
 @Table(name = "users")
 @ApiModel(value = "User", description = "A user of this application")
 public class User extends Auditable {
-    @ApiModelProperty(name = "user id", value = "primary key for user", example="1")
+    @ApiModelProperty(name = "user id", value = "primary key for user (generated automatically by database)", example="1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
@@ -30,7 +30,7 @@ public class User extends Auditable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @ApiModelProperty(name = "email", value = "the email the user signed up with", required = true, example="user@site.com")
+    @ApiModelProperty(name = "email", value = "the email the user signed up with (must look like email address)", required = true, example="user@site.com")
     @Column(nullable = false)
     @Email
     private String email;

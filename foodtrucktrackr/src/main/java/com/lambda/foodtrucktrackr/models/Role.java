@@ -12,7 +12,7 @@ import java.util.Set;
 @Table(name = "roles")
 @ApiModel(value = "Role", description = "The user's role: either operator or diner")
 public class Role extends Auditable {
-    @ApiModelProperty(name = "role id", value = "primary key for role", example="1")
+    @ApiModelProperty(name = "role id", value = "primary key for role (generated automatically by database)", example="1")
     @Id
     @GeneratedValue
     private long roleid;
