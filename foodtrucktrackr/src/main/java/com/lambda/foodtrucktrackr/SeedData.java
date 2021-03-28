@@ -70,7 +70,6 @@ public class SeedData implements CommandLineRunner {
 //                        "admin@mymail.local"));
 
 
-
         // diner
         User u2 = new User("Beau",
                 "password",
@@ -89,6 +88,8 @@ public class SeedData implements CommandLineRunner {
 //                        "bunny@email.local"));
         userService.save(u2);
 
+
+        // truck
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
         truckService.save(t1);
 
