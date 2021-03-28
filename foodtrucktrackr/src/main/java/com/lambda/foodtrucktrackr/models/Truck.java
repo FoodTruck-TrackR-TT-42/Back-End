@@ -31,8 +31,7 @@ public class Truck {
     public Truck() {
     }
 
-    public Truck(long truckid, String truckname, String cuisinetype) {
-        this.truckid = truckid;
+    public Truck(String truckname, String cuisinetype) {
         this.truckname = truckname;
         this.cuisinetype = cuisinetype;
     }

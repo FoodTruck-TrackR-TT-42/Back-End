@@ -28,11 +28,14 @@ public class MenuItem extends Auditable {
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
     private List<Truck> trucks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
+    private List<MenuItemPhoto> menuitemphotos = new ArrayList<>();
+
     public MenuItem() {
     }
 
-    public MenuItem(long menuitemid, String itemname, double itemprice) {
-        this.menuitemid = menuitemid;
+    public MenuItem(String itemname, double itemprice) {
         this.itemname = itemname;
         this.itemprice = itemprice;
     }
