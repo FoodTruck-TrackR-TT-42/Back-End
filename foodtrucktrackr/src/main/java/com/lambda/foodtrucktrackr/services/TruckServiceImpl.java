@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr.services;
 
-import com.lambda.foodtrucktrackr.models.Truck;
+import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
+import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.repositories.TruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,12 @@ import java.util.List;
 public class TruckServiceImpl  implements TruckService {
     @Autowired
     private TruckRepository truckrepos;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private MenuItemService menuItemService;
 
     @Override
     public List<Truck> findAll() {
@@ -41,9 +48,36 @@ public class TruckServiceImpl  implements TruckService {
         return null;
     }
 
+    @Transactional
     @Override
     public Truck save(Truck truck) {
-        return null;
+        Truck newTruck = new Truck();
+
+        if (truck.getTruckid() != 0) {
+            truckrepos.findById(truck.getTruckid())
+                .orElseThrow(() -> new ResourceNotFoundException("Truck id " + truck.getTruckid() + " not found!"));
+            newTruck.setTruckid(truck.getTruckid());
+        }
+
+        newTruck.setTruckname(truck.getTruckname());
+        newTruck.setCuisinetype(truck.getCuisinetype());
+
+        newTruck.getMenus().clear();
+        for (Menu m : truck.getMenus()) {
+            MenuItem addItem = menuItemService.findMenuitemById(m.getMenuitem()
+                    .getMenuitemid());
+            newTruck.getMenus()
+                    .add(new Menu(newTruck, addItem));
+        }
+
+        newTruck.getUsers().clear();
+        for (UserTrucks ut : truck.getUsers()) {
+            User addUser = userService.findUserById(ut.getUser()
+                    .getUserid());
+            newTruck.getUsers().add(new UserTrucks(addUser, newTruck));
+        }
+
+        return truckrepos.save(newTruck);
     }
 
     @Override

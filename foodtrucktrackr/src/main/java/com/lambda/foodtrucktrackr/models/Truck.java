@@ -71,4 +71,12 @@ public class Truck {
     public void setMenus(List<Menu> menus) {
         this.menus = menus;
     }
+
+    public List<UserTrucks> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<UserTrucks> users) {
+        this.users = users;
+    }
 }

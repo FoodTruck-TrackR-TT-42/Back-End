@@ -97,6 +97,14 @@ public class User extends Auditable {
         this.roles = roles;
     }
 
+    public List<UserTrucks> getTrucks() {
+        return trucks;
+    }
+
+    public void setTrucks(List<UserTrucks> trucks) {
+        this.trucks = trucks;
+    }
+
     @JsonIgnore
     public List<SimpleGrantedAuthority> getAuthority() {
         List<SimpleGrantedAuthority> rtnList = new ArrayList<>();

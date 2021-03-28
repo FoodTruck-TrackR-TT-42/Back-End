@@ -1,9 +1,8 @@
 package com.lambda.foodtrucktrackr;
 
-import com.lambda.foodtrucktrackr.models.Role;
-import com.lambda.foodtrucktrackr.models.User;
-import com.lambda.foodtrucktrackr.models.UserRoles;
+import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.services.RoleService;
+import com.lambda.foodtrucktrackr.services.TruckService;
 import com.lambda.foodtrucktrackr.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,6 +28,9 @@ public class SeedData implements CommandLineRunner {
      */
     @Autowired
     UserService userService;
+
+    @Autowired
+    TruckService truckService;
 
     /**
      * Generates test, seed data for our application
@@ -67,7 +69,7 @@ public class SeedData implements CommandLineRunner {
 //                .add(new Useremail(u1,
 //                        "admin@mymail.local"));
 
-        userService.save(u1);
+
 
         // diner
         User u2 = new User("Beau",
@@ -86,5 +88,11 @@ public class SeedData implements CommandLineRunner {
 //                .add(new Useremail(u2,
 //                        "bunny@email.local"));
         userService.save(u2);
+
+        Truck t1 = new Truck("Lunch Box", "Sandwiches");
+        truckService.save(t1);
+
+        u1.getTrucks().add(new UserTrucks(u1, t1));
+        userService.save(u1);
     }
 }
