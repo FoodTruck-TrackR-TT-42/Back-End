@@ -31,8 +31,8 @@ public class Swagger2Config
     {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.lambda.foodtrucktrackr"))
+                .paths(PathSelectors.ant("/users/**"))
                 .build()
                 .apiInfo(apiEndPointsInfo());
     }

@@ -217,6 +217,8 @@ public class UserController {
      */
     @ApiOperation(value = "returns the currently authenticated user",
             response = User.class)
+    @ApiResponses(value = {@ApiResponse(code = 200, message = "User found", response = User.class),
+            @ApiResponse(code = 404, message = "User not found", response = ErrorDetail.class)})
     @GetMapping(value = "/getuserinfo",
             produces = {"application/json"})
     public ResponseEntity<?> getCurrentUserInfo(Authentication authentication)
