@@ -44,7 +44,7 @@ public class TruckController {
     }
 
     @ApiOperation(value = "Retrieves a list of trucks with the given cuisineType", response = Truck.class, responseContainer = "List")
-    @GetMapping(value = "/cuisinetype/{cuisineType}", produces = "appliaction/json")
+    @GetMapping(value = "/cuisinetype/{cuisineType}", produces = "application/json")
     public ResponseEntity<?> getTrucksByCuisineType(
             @ApiParam(value = "cuisine type", required = true, example = "Salvadoran")
             @PathVariable

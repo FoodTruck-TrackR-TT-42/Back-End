@@ -47,7 +47,7 @@ public class TruckServiceImpl  implements TruckService {
 
     @Override
     public List<Truck> findTrucksByCuisineType(String cuisineType) {
-        List<Truck> trucks = truckrepos.findByCuisinetype(cuisineType);
+        List<Truck> trucks = truckrepos.findByCuisinetypeContainingIgnoringCase(cuisineType);
         return trucks;
     }
 
