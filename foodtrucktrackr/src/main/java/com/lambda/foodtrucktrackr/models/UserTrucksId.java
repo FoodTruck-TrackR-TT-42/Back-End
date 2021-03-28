@@ -6,26 +6,19 @@ import java.io.Serializable;
 @Embeddable
 public class UserTrucksId implements Serializable {
     private long user;
+
     private long truck;
 
     public UserTrucksId() {
     }
 
-    public long getUser() {
-        return user;
-    }
+    public long getUser() { return user; }
 
-    public void setUser(long user) {
-        this.user = user;
-    }
+    public void setUser(long user) { this.user = user; }
 
-    public long getTruck() {
-        return truck;
-    }
+    public long getTruck() { return truck; }
 
-    public void setTruck(long truck) {
-        this.truck = truck;
-    }
+    public void setTruck(long truck) { this.truck = truck; }
 
     @Override
     public boolean equals(Object o)

@@ -11,4 +11,5 @@ public interface TruckService {
     List<Truck> findTrucksByCuisineType(String cuisineType);
     Truck save(Truck truck);
     Truck update(Truck truck, long id);
+    void deleteAll();
 }

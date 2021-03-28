@@ -10,6 +10,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Transactional
 @ConditionalOnProperty(prefix = "command.line.runner",
         value = "enabled",
@@ -49,6 +52,7 @@ public class SeedData implements CommandLineRunner {
         // define roles
         userService.deleteAll();
         roleService.deleteAll();
+        truckService.deleteAll();
         Role r1 = new Role("operator");
         Role r2 = new Role("diner");
 
@@ -68,7 +72,7 @@ public class SeedData implements CommandLineRunner {
 //        u1.getUseremails()
 //                .add(new Useremail(u1,
 //                        "admin@mymail.local"));
-
+        userService.save(u1);
 
         // diner
         User u2 = new User("Beau",
@@ -88,12 +92,9 @@ public class SeedData implements CommandLineRunner {
 //                        "bunny@email.local"));
         userService.save(u2);
 
-
         // truck
+
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
         truckService.save(t1);
-
-        u1.getTrucks().add(new UserTrucks(u1, t1));
-        userService.save(u1);
     }
 }

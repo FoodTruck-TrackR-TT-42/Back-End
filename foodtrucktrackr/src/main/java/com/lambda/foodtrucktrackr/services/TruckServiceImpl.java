@@ -5,6 +5,7 @@ import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.repositories.TruckRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -84,4 +85,8 @@ public class TruckServiceImpl  implements TruckService {
     public Truck update(Truck truck, long id) {
         return null;
     }
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Override
+    public void deleteAll() { truckrepos.deleteAll(); }
 }
