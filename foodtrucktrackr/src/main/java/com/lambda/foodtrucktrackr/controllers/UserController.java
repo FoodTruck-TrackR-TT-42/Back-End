@@ -33,7 +33,7 @@ public class UserController {
      * @return JSON list of all users with a status of OK
      * @see UserService#findAll() UserService.findAll()
      */
-    @ApiOperation(value = "Returns a list of User objects", response = User.class, responseContainer = "List")
+    @ApiOperation(value = "Returns a list of all Users", response = User.class, responseContainer = "List")
     @GetMapping(value = "/users",
             produces = "application/json")
     public ResponseEntity<?> listAllUsers()
