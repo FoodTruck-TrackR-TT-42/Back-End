@@ -39,6 +39,10 @@ public class User extends Auditable {
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<UserTrucks> trucks = new ArrayList<>();
+
     public User() {
     }
 
@@ -91,6 +95,14 @@ public class User extends Auditable {
 
     public void setRoles(Set<UserRoles> roles) {
         this.roles = roles;
+    }
+
+    public List<UserTrucks> getTrucks() {
+        return trucks;
+    }
+
+    public void setTrucks(List<UserTrucks> trucks) {
+        this.trucks = trucks;
     }
 
     @JsonIgnore

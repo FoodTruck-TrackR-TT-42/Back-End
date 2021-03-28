@@ -1,15 +1,17 @@
 package com.lambda.foodtrucktrackr;
 
-import com.lambda.foodtrucktrackr.models.Role;
-import com.lambda.foodtrucktrackr.models.User;
-import com.lambda.foodtrucktrackr.models.UserRoles;
+import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.services.RoleService;
+import com.lambda.foodtrucktrackr.services.TruckService;
 import com.lambda.foodtrucktrackr.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Transactional
 @ConditionalOnProperty(prefix = "command.line.runner",
@@ -30,6 +32,9 @@ public class SeedData implements CommandLineRunner {
     @Autowired
     UserService userService;
 
+    @Autowired
+    TruckService truckService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -47,6 +52,7 @@ public class SeedData implements CommandLineRunner {
         // define roles
         userService.deleteAll();
         roleService.deleteAll();
+        truckService.deleteAll();
         Role r1 = new Role("operator");
         Role r2 = new Role("diner");
 
@@ -66,7 +72,6 @@ public class SeedData implements CommandLineRunner {
 //        u1.getUseremails()
 //                .add(new Useremail(u1,
 //                        "admin@mymail.local"));
-
         userService.save(u1);
 
         // diner
@@ -86,5 +91,10 @@ public class SeedData implements CommandLineRunner {
 //                .add(new Useremail(u2,
 //                        "bunny@email.local"));
         userService.save(u2);
+
+        // truck
+
+        Truck t1 = new Truck("Lunch Box", "Sandwiches");
+        truckService.save(t1);
     }
 }

@@ -26,7 +26,7 @@ public class MenuItem extends Auditable {
 
     @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
-    private List<Truck> trucks = new ArrayList<>();
+    private List<Menu> trucks = new ArrayList<>();
 
     @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
@@ -64,11 +64,19 @@ public class MenuItem extends Auditable {
         this.itemprice = itemprice;
     }
 
-    public List<Truck> getTrucks() {
+    public List<Menu> getTrucks() {
         return trucks;
     }
 
-    public void setTrucks(List<Truck> trucks) {
+    public void setTrucks(List<Menu> trucks) {
         this.trucks = trucks;
+    }
+
+    public List<MenuItemPhoto> getMenuitemphotos() {
+        return menuitemphotos;
+    }
+
+    public void setMenuitemphotos(List<MenuItemPhoto> menuitemphotos) {
+        this.menuitemphotos = menuitemphotos;
     }
 }
