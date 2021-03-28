@@ -71,4 +71,12 @@ public class MenuItem extends Auditable {
     public void setTrucks(List<Truck> trucks) {
         this.trucks = trucks;
     }
+
+    public List<MenuItemPhoto> getMenuitemphotos() {
+        return menuitemphotos;
+    }
+
+    public void setMenuitemphotos(List<MenuItemPhoto> menuitemphotos) {
+        this.menuitemphotos = menuitemphotos;
+    }
 }
