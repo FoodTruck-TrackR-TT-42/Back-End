@@ -28,6 +28,10 @@ public class Truck {
     @JsonIgnoreProperties(value = "truck", allowSetters = true)
     private List<Menu> menus = new ArrayList<>();
 
+    @OneToMany(mappedBy = "truck", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "truck", allowSetters = true)
+    private List<UserTrucks> users = new ArrayList<>();
+
     public Truck() {
     }
 
