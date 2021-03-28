@@ -16,7 +16,7 @@ import java.util.*;
 @Table(name = "users")
 @ApiModel(value = "User", description = "A user of this application")
 public class User extends Auditable {
-    @ApiModelProperty(name = "user id", value = "primary key for user (generated automatically by database)", example="1")
+    @ApiModelProperty(name = "user id", value = "primary key for User (generated automatically by database)", example="11")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
