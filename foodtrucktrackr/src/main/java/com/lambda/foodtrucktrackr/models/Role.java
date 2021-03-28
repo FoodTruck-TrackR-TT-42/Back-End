@@ -1,6 +1,8 @@
 package com.lambda.foodtrucktrackr.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,11 +10,14 @@ import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@ApiModel(value = "Role", description = "The user's role: either operator or diner")
 public class Role extends Auditable {
+    @ApiModelProperty(name = "role id", value = "primary key for role", example="1")
     @Id
     @GeneratedValue
     private long roleid;
 
+    @ApiModelProperty(name = "name", value = "the name of this role", example="operator")
     @Column(nullable = false, unique = true)
     private String name;
 
