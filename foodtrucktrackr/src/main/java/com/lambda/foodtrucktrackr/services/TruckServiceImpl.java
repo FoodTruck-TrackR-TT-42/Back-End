@@ -40,10 +40,11 @@ public class TruckServiceImpl  implements TruckService {
                 .orElseThrow(() -> new ResourceNotFoundException("Truck id " + id + " not found!"));
     }
 
-    @Override
-    public List<Truck> findTrucksByUserId(long id) {
-        return null;
-    }
+//    @Override
+//    public List<Truck> findTrucksByUserId(long id) {
+//
+//        return null;
+//    }
 
     @Override
     public List<Truck> findTrucksByCuisineType(String cuisineType) {

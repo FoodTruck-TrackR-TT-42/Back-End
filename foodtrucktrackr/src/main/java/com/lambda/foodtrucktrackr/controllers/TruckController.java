@@ -83,4 +83,6 @@ public class TruckController {
 
         return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
+
+
 }

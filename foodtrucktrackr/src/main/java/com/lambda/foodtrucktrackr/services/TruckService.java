@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TruckService {
     List<Truck> findAll();
-    List<Truck> findTrucksByUserId(long id);
+//    List<Truck> findTrucksByUserId(long id);
     List<Truck> findTrucksByCuisineType(String cuisineType);
     Truck findTruckById(long id);
     Truck save(Truck truck);
