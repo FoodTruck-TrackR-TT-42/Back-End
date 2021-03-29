@@ -44,6 +44,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers(HttpMethod.PUT, "api/menus/menuitem").hasAnyRole("OPERATOR")
                 .antMatchers("/api/menus/menuitem/**").authenticated()
                 .antMatchers("/api/users/**").authenticated()
+                .antMatchers("/api/menuratings/**").authenticated()
                 .anyRequest().denyAll()
                 .and()
                 .exceptionHandling()

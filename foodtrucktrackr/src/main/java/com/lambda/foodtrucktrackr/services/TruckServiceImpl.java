@@ -81,10 +81,10 @@ public class TruckServiceImpl  implements TruckService {
             newTruck.getUsers().add(new UserTrucks(addUser, newTruck));
         }
 
-//        newTruck.getTruckratings().clear();
-//        for (TruckRating tr : truck.getTruckratings()) {
-//            newTruck.getTruckratings().add(tr)
-//        }
+        newTruck.getTruckratings().clear();
+        for (TruckRating tr : truck.getTruckratings()) {
+            newTruck.getTruckratings().add(tr);
+        }
 
         return truckrepos.save(newTruck);
     }

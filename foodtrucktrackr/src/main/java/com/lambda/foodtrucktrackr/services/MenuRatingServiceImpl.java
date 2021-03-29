@@ -13,6 +13,12 @@ public class MenuRatingServiceImpl implements MenuRatingService {
     @Autowired
     private MenuRatingRepository menuRatingRepository;
 
+    @Autowired
+    private MenuItemService menuItemService;
+
+    @Autowired
+    private UserService userService;
+
     @Override
     public MenuRating findMenuratingById(long id) {
         return menuRatingRepository.findById(id)
@@ -32,8 +38,13 @@ public class MenuRatingServiceImpl implements MenuRatingService {
         }
 
         newRating.setScore(menurating.getScore());
-        newRating.setMenuitem(menurating.getMenuitem());
-        newRating.setUser(menurating.getUser());
+
+        if (menurating.getMenuitem() != null) {
+            newRating.setMenuitem(menuItemService.findMenuitemById(menurating.getMenuitem().getMenuitemid()));
+        }
+        if (menurating.getUser() != null) {
+            newRating.setUser(userService.findUserById(menurating.getUser().getUserid()));
+        }
 
         return menuRatingRepository.save(newRating);
     }

@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr.services;
 
 import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
+import com.lambda.foodtrucktrackr.models.MenuRating;
 import com.lambda.foodtrucktrackr.models.Role;
 import com.lambda.foodtrucktrackr.models.User;
 import com.lambda.foodtrucktrackr.models.UserRoles;
@@ -27,6 +28,9 @@ public class UserServiceImpl implements UserService {
      */
     @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private MenuRatingService menuRatingService;
 
     @Autowired
     private HelperFunctions helperFunctions;
@@ -107,6 +111,12 @@ public class UserServiceImpl implements UserService {
                     .add(new UserRoles(newUser,
                             addRole));
         }
+
+        newUser.getMenuratings().clear();
+        for (MenuRating mr : user.getMenuratings()) {
+            newUser.getMenuratings().add(menuRatingService.findMenuratingById(mr.getMenuratingid()));
+        }
+
 //
 //        newUser.getUseremails()
 //                .clear();
