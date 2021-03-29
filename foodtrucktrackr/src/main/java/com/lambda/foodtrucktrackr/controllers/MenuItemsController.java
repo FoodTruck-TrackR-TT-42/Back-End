@@ -32,7 +32,7 @@ public class MenuItemsController {
     }
 
     @ApiOperation(value = "Add a new menu item at the truck with the given id", response = MenuItem.class)
-    @PostMapping(value = "/menuitem", produces = "application/json")
+    @PostMapping(value = "/menuitem/add", produces = "application/json")
     public ResponseEntity<?> addNewMenuItem(
             @Valid
             @RequestBody
@@ -51,7 +51,7 @@ public class MenuItemsController {
     }
 
     @ApiOperation(value = "Updates an existing menu item", response = MenuItem.class)
-    @PutMapping(value = "/menuitem/{menuitemid}",
+    @PutMapping(value = "/menuitem/{menuitemid}/update",
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<?> updateMenuItem(

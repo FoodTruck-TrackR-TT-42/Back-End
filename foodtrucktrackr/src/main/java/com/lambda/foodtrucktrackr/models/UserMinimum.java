@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr.models;
 
 import javax.validation.constraints.Email;
+
 public class UserMinimum {
     /**
      * The username (String)
@@ -16,7 +17,9 @@ public class UserMinimum {
      * The user's primary email address (String)
      */
     @Email
-    private String primaryemail;
+    private String email;
+
+    private String role;
 
     /**
      * Getter for the username
@@ -66,16 +69,24 @@ public class UserMinimum {
      */
     public String getEmail()
     {
-        return primaryemail;
+        return email;
     }
 
     /**
      * Setter for email for this user
      *
-     * @param primaryemail the new email address (String) for this user.
+     * @param email the new email address (String) for this user.
      */
-    public void setEmail(String primaryemail)
+    public void setEmail(String email)
     {
-        this.primaryemail = primaryemail;
+        this.email = email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

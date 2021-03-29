@@ -115,29 +115,29 @@ public class UserController {
      * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see UserService#save(User) UserService.save(User)
      */
-    @PostMapping(value = "/user/register",
-            consumes = "application/json")
-    public ResponseEntity<?> addNewUser(
-            @Valid
-            @RequestBody
-            User newuser) throws
-            URISyntaxException
-    {
-        newuser.setUserid(0);
-        newuser = userService.save(newuser);
-
-        // set the location header for the newly created resource
-        HttpHeaders responseHeaders = new HttpHeaders();
-        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{userid}")
-                .buildAndExpand(newuser.getUserid())
-                .toUri();
-        responseHeaders.setLocation(newUserURI);
-
-        return new ResponseEntity<>(null,
-                responseHeaders,
-                HttpStatus.CREATED);
-    }
+//    @PostMapping(value = "/user/register",
+//            consumes = "application/json")
+//    public ResponseEntity<?> addNewUser(
+//            @Valid
+//            @RequestBody
+//            User newuser) throws
+//            URISyntaxException
+//    {
+//        newuser.setUserid(0);
+//        newuser = userService.save(newuser);
+//
+//        // set the location header for the newly created resource
+//        HttpHeaders responseHeaders = new HttpHeaders();
+//        URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .path("/{userid}")
+//                .buildAndExpand(newuser.getUserid())
+//                .toUri();
+//        responseHeaders.setLocation(newUserURI);
+//
+//        return new ResponseEntity<>(null,
+//                responseHeaders,
+//                HttpStatus.CREATED);
+//    }
 
     /**
      * Given a complete User Object
