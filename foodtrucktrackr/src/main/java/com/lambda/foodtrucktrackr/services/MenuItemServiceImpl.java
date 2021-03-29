@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr.services;
 
-import com.lambda.foodtrucktrackr.models.MenuItem;
+import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
+import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.repositories.MenuItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,24 +15,55 @@ public class MenuItemServiceImpl implements MenuItemService {
     @Autowired
     private MenuItemRepository menuItemRepository;
 
+    @Autowired
+    private TruckService truckService;
+
     @Override
     public List<MenuItem> findAll() {
         return null;
     }
 
-    @Override
-    public List<MenuItem> findMenuItemsByTruckId(long truckid) {
-        return null;
-    }
+//    @Override
+//    public List<MenuItem> findMenuItemsByTruckId(long truckid) {
+//        return null;
+//    }
 
     @Override
     public MenuItem findMenuitemById(long id) {
-        return null;
+        return menuItemRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Menu item id " + id + " not found!"));
     }
 
     @Override
     public MenuItem save(MenuItem menuitem) {
-        return null;
+        MenuItem newItem = new MenuItem();
+
+        if (menuitem.getMenuitemid() != 0) {
+            menuItemRepository.findById(menuitem.getMenuitemid())
+                    .orElseThrow(() -> new ResourceNotFoundException("Menu item id " + menuitem.getMenuitemid() + " not found!"));
+            newItem.setMenuitemid(menuitem.getMenuitemid());
+        }
+
+        newItem.setItemname(menuitem.getItemname());
+        newItem.setItemprice(menuitem.getItemprice());
+
+        newItem.getMenuitemphotos().clear();
+        for (MenuItemPhoto mip : menuitem.getMenuitemphotos()) {
+            newItem.getMenuitemphotos().add(mip);
+        }
+
+        newItem.getMenuratings().clear();
+        for (MenuRating mr : menuitem.getMenuratings()) {
+            newItem.getMenuratings().add(mr);
+        }
+
+        newItem.getTrucks().clear();
+        for (Menu m : menuitem.getTrucks()) {
+            Truck addTruck = truckService.findTruckById(m.getTruck().getTruckid());
+            newItem.getTrucks().add(new Menu(addTruck, newItem));
+        }
+
+        return menuItemRepository.save(newItem);
     }
 
     @Override

@@ -40,7 +40,7 @@ public class TruckController {
     public ResponseEntity<?> getTruckById(
             @ApiParam(value = "truck id", required = true, example = "19")
             @PathVariable
-            Long truckid) {
+            long truckid) {
         Truck t = truckService.findTruckById(truckid);
         return new ResponseEntity<>(t, HttpStatus.OK);
     }
@@ -83,6 +83,4 @@ public class TruckController {
 
         return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
-
-
 }
