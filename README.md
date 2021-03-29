@@ -9,7 +9,7 @@ https://tt42-foodtrucktrackr.herokuapp.com
 
 ### Add New User
 POST
-/api/users/register
+/api/users/user/register
 
 ### Login
 GET
@@ -38,13 +38,35 @@ DELETE
 GET
 /api/trucks/trucks
 
-### Retrieve a truck based off of it's id
+### Retrieve a truck based off of its id
 GET
 /api/trucks/truck/{truckid}
+
+## Add A new Truck
+POST
+/api/trucks/truck/add
+
+## Update Existing User
+PUT
+/api/trucks/truck/{truckid}/update
 
 ### Retrieve a list of trucks with the given cuisine type
 GET
 /api/trucks/cuisinetype/{cuisineType}
+
+### MENU ITEMS
+
+## Add New Menu Item
+POST
+/api/menus/menuitem
+
+## Retrieve a Menu Item based off of its id
+GET
+/api/menus/menuitem/{menuitemid}
+
+## Update an existing menu item
+PUT
+/api/menus/menuitem/{menuitemid}
 
 
 ## FOR ADDITIONAL INFO ON THESE ENDPOINTS
