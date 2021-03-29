@@ -8,13 +8,15 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
@@ -51,5 +53,34 @@ public class TruckController {
             String cuisineType) {
         List<Truck> trucks = truckService.findTrucksByCuisineType(cuisineType);
         return new ResponseEntity<>(trucks, HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "Adds a new truck to the database", response = Truck.class)
+    @PostMapping(value = "/truck", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> addNewTruck(@Valid @RequestBody Truck newtruck) throws URISyntaxException {
+        newtruck.setTruckid(0);
+        newtruck = truckService.save(newtruck);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newTruckURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{truckid}")
+                .buildAndExpand(newtruck.getTruckid())
+                .toUri();
+        responseHeaders.setLocation(newTruckURI);
+
+        return new ResponseEntity<>(newtruck, responseHeaders, HttpStatus.CREATED);
+    }
+
+    @ApiOperation(value = "Updates an existing truck", response = Truck.class)
+    @PutMapping(value = "/truck/{truckid}",
+            consumes = "application/json",
+            produces = "application/json")
+    public ResponseEntity<?> updateTruck(
+            @Valid @RequestBody Truck updatedTruck,
+            @PathVariable long truckid) {
+        updatedTruck.setTruckid(truckid);
+        updatedTruck = truckService.save(updatedTruck);
+
+        return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
     }
 }
