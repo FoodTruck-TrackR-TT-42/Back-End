@@ -3,6 +3,7 @@ package com.lambda.foodtrucktrackr.services;
 import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
 import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.repositories.MenuItemRepository;
+import com.lambda.foodtrucktrackr.repositories.MenuRatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,9 @@ public class MenuItemServiceImpl implements MenuItemService {
 
     @Autowired
     private TruckService truckService;
+
+    @Autowired
+    private MenuRatingService menuRatingService;
 
     @Override
     public List<MenuItem> findAll() {
@@ -49,12 +53,13 @@ public class MenuItemServiceImpl implements MenuItemService {
 
         newItem.getMenuitemphotos().clear();
         for (MenuItemPhoto mip : menuitem.getMenuitemphotos()) {
+            // when you get to this one, do the same thing as below, with menuItemPhotoService
             newItem.getMenuitemphotos().add(mip);
         }
 
         newItem.getMenuratings().clear();
         for (MenuRating mr : menuitem.getMenuratings()) {
-            newItem.getMenuratings().add(mr);
+            newItem.getMenuratings().add(menuRatingService.findMenuratingById(mr.getMenuratingid()));
         }
 
         newItem.getTrucks().clear();

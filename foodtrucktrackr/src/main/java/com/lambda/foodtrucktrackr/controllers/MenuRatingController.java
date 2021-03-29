@@ -1,14 +1,20 @@
 package com.lambda.foodtrucktrackr.controllers;
 
 import com.lambda.foodtrucktrackr.models.MenuItem;
+import com.lambda.foodtrucktrackr.models.MenuRating;
 import com.lambda.foodtrucktrackr.services.MenuRatingService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.validation.Valid;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 @RestController
 @RequestMapping("/api/menuratings")
@@ -16,9 +22,33 @@ public class MenuRatingController {
     @Autowired
     private MenuRatingService menuRatingService;
 
-//    @ApiOperation(value = "Retrieves a menu rating based off its id", response = MenuItem.class)
-//    @GetMapping(value = "/menurating", produces = "application/json")
-//    public ResponseEntity<?> findMenuRatingById(
-//            @ApiParam(value = )
-//    )
+    @ApiOperation(value = "Retrieves a menu rating based off its id", response = MenuItem.class)
+    @GetMapping(value = "/menurating/{menuratingid}", produces = "application/json")
+    public ResponseEntity<?> findMenuRatingById(
+            @ApiParam(value = "menu rating id", required = true, example = "41")
+            @PathVariable
+            long menuratingid) {
+        MenuRating mr = menuRatingService.findMenuratingById(menuratingid);
+        return new ResponseEntity<>(mr, HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "Add a new menu rating", response = MenuRating.class)
+    @PostMapping(value = "/menurating/add", produces = "application/json")
+    public ResponseEntity<?> addNewMenuRating(
+            @Valid
+            @RequestBody
+            MenuRating newMenuRating) throws URISyntaxException {
+        newMenuRating.setMenuratingid(0);
+        newMenuRating = menuRatingService.save(newMenuRating);
+
+        HttpHeaders responseHeaders = new HttpHeaders();
+        URI newRatingURI = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{menuratingid}")
+                .buildAndExpand(newMenuRating.getMenuratingid())
+                .toUri();
+        responseHeaders.setLocation(newRatingURI);
+
+        return new ResponseEntity<>(newMenuRating, responseHeaders, HttpStatus.CREATED);
+    }
 }

@@ -31,7 +31,7 @@ public class MenuItemsController {
         return new ResponseEntity<>(mi, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Add a new menu item at the truck with the given id", response = MenuItem.class)
+    @ApiOperation(value = "Add a new menu item", response = MenuItem.class)
     @PostMapping(value = "/menuitem/add", produces = "application/json")
     public ResponseEntity<?> addNewMenuItem(
             @Valid

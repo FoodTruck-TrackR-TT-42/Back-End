@@ -1,10 +1,7 @@
 package com.lambda.foodtrucktrackr;
 
 import com.lambda.foodtrucktrackr.models.*;
-import com.lambda.foodtrucktrackr.services.MenuItemService;
-import com.lambda.foodtrucktrackr.services.RoleService;
-import com.lambda.foodtrucktrackr.services.TruckService;
-import com.lambda.foodtrucktrackr.services.UserService;
+import com.lambda.foodtrucktrackr.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -39,6 +36,9 @@ public class SeedData implements CommandLineRunner {
     @Autowired
     MenuItemService menuItemService;
 
+    @Autowired
+    MenuRatingService menuRatingService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -70,12 +70,6 @@ public class SeedData implements CommandLineRunner {
         u1.getRoles()
                 .add(new UserRoles(u1,
                         r1));
-//        u1.getUseremails()
-//                .add(new Useremail(u1,
-//                        "admin@email.local"));
-//        u1.getUseremails()
-//                .add(new Useremail(u1,
-//                        "admin@mymail.local"));
         u1 = userService.save(u1);
 
         // diner
@@ -85,20 +79,20 @@ public class SeedData implements CommandLineRunner {
         u2.getRoles()
                 .add(new UserRoles(u2,
                         r2));
-//        u2.getUseremails()
-//                .add(new Useremail(u2,
-//                        "cinnamon@mymail.local"));
-//        u2.getUseremails()
-//                .add(new Useremail(u2,
-//                        "hops@mymail.local"));
-//        u2.getUseremails()
-//                .add(new Useremail(u2,
-//                        "bunny@email.local"));
         u2 = userService.save(u2);
+
+        // menurating
+        MenuRating mr1 = new MenuRating(4);
+        mr1.setUser(u2);
+        u2.getMenuratings().add(mr1);
+        mr1= menuRatingService.save(mr1);
 
         // menuitems
         MenuItem mi1 = new MenuItem("BLT", 7.99);
+        mi1.getMenuratings().add(mr1);
         mi1 = menuItemService.save(mi1);
+        mr1.setMenuitem(mi1);
+        mr1 = menuRatingService.save(mr1);
 
         // truck
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
