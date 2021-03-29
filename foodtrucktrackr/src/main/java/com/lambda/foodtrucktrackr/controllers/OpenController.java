@@ -45,7 +45,7 @@ public class OpenController {
      *
      * @param httpServletRequest the request that comes in for creating the new user
      * @param newminuser         A special minimum set of data that is needed to create a new user
-     * @return The token access and other relevent data to token access. Status of CREATED. The location header to look up the new user.
+     * @return The token access and other relevant data to token access. Status of CREATED. The location header to look up the new user.
      * @throws URISyntaxException we create some URIs during this method. If anything goes wrong with that creation, an exception is thrown.
      */
     @PostMapping(value = "/createnewuser",
