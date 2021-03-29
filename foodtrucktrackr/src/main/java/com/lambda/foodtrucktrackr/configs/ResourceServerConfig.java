@@ -32,7 +32,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                         "/swagger-ui.html",
                         "/v2/api-docs",
                         "/webjars/**",
-                        "/createnewuser")
+                        "/createnewuser", "/api/users/user/register")
                 .permitAll()
                 .antMatchers("/useremails/**", "/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("OPERATOR")
@@ -40,6 +40,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers(HttpMethod.PATCH, "/api/users/**").hasAnyRole("OPERATOR")
                 .antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("OPERATOR")
                 .antMatchers("/api/trucks/**").hasAnyRole("OPERATOR")
+                .antMatchers(HttpMethod.POST, "api/menus/menuitem").hasAnyRole("OPERATOR")
+                .antMatchers(HttpMethod.PUT, "api/menus/menuitem").hasAnyRole("OPERATOR")
+                .antMatchers("/api/menus/menuitem/**").authenticated()
                 .antMatchers("/api/users/**").authenticated()
                 .anyRequest().denyAll()
                 .and()

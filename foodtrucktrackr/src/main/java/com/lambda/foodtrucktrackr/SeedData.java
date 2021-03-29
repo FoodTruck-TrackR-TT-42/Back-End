@@ -1,6 +1,7 @@
 package com.lambda.foodtrucktrackr;
 
 import com.lambda.foodtrucktrackr.models.*;
+import com.lambda.foodtrucktrackr.services.MenuItemService;
 import com.lambda.foodtrucktrackr.services.RoleService;
 import com.lambda.foodtrucktrackr.services.TruckService;
 import com.lambda.foodtrucktrackr.services.UserService;
@@ -34,6 +35,9 @@ public class SeedData implements CommandLineRunner {
 
     @Autowired
     TruckService truckService;
+
+    @Autowired
+    MenuItemService menuItemService;
 
     /**
      * Generates test, seed data for our application
@@ -72,7 +76,7 @@ public class SeedData implements CommandLineRunner {
 //        u1.getUseremails()
 //                .add(new Useremail(u1,
 //                        "admin@mymail.local"));
-        userService.save(u1);
+        u1 = userService.save(u1);
 
         // diner
         User u2 = new User("Beau",
@@ -90,11 +94,16 @@ public class SeedData implements CommandLineRunner {
 //        u2.getUseremails()
 //                .add(new Useremail(u2,
 //                        "bunny@email.local"));
-        userService.save(u2);
+        u2 = userService.save(u2);
+
+        // menuitems
+        MenuItem mi1 = new MenuItem("BLT", 7.99);
+        mi1 = menuItemService.save(mi1);
 
         // truck
-
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
-        truckService.save(t1);
+        t1.getMenus().add(new Menu(t1, mi1));
+        t1.getUsers().add(new UserTrucks(u1, t1));
+        t1 = truckService.save(t1);
     }
 }
