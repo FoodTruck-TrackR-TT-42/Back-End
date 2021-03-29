@@ -32,6 +32,10 @@ public class MenuItem extends Auditable {
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
     private List<MenuItemPhoto> menuitemphotos = new ArrayList<>();
 
+    @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
+    private List<MenuRating> menuratings = new ArrayList<>();
+
     public MenuItem() {
     }
 
@@ -78,5 +82,13 @@ public class MenuItem extends Auditable {
 
     public void setMenuitemphotos(List<MenuItemPhoto> menuitemphotos) {
         this.menuitemphotos = menuitemphotos;
+    }
+
+    public List<MenuRating> getMenuratings() {
+        return menuratings;
+    }
+
+    public void setMenuratings(List<MenuRating> menuratings) {
+        this.menuratings = menuratings;
     }
 }
