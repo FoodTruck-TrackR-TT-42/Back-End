@@ -14,19 +14,19 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter
 {
-    private final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
-    private final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET");
+//    final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
+//    final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET");
 
-    // private String CLIENT_ID = "lambda-client";
-    //private String CLIENT_SECRET = "lambda-secret";
+    static final String CLIENT_ID = "lambda-client";
 
-    private final String GRANT_TYPE_PASSWORD = "password";
-    private final String AUTHORIZATION_CODE = "authorization_code";
-    private final String SCOPE_READ = "read";
-    private final String SCOPE_WRITE = "write";
-    private final String SCOPE_TRUST = "trust";
+    static final String CLIENT_SECRET = "lambda-secret";
+    static final String GRANT_TYPE_PASSWORD = "password";
+    static final String AUTHORIZATION_CODE = "authorization_code";
+    static final String SCOPE_READ = "read";
+    static final String SCOPE_WRITE = "write";
+    static final String SCOPE_TRUST = "trust";
 
-    private final int ACCESS_TOKEN_VALIDITY_SECONDS = -1;
+    static final int ACCESS_TOKEN_VALIDITY_SECONDS = -1;
 
     @Autowired
     private TokenStore tokenStore;

@@ -115,7 +115,7 @@ public class UserController {
      * @throws URISyntaxException Exception if something does not work in creating the location header
      * @see UserService#save(User) UserService.save(User)
      */
-    @PostMapping(value = "/user",
+    @PostMapping(value = "/user/register",
             consumes = "application/json")
     public ResponseEntity<?> addNewUser(
             @Valid
@@ -152,7 +152,7 @@ public class UserController {
      * @return status of OK
      * @see UserService#save(User) UserService.save(User)
      */
-    @PutMapping(value = "/user/{userid}",
+    @PutMapping(value = "/user/{userid}/update",
             consumes = "application/json")
     public ResponseEntity<?> updateFullUser(
             @Valid
@@ -178,7 +178,7 @@ public class UserController {
      * @return A status of OK
      * @see UserService#update(User, long) UserService.update(User, long)
      */
-    @PatchMapping(value = "/user/{id}",
+    @PatchMapping(value = "/user/{id}/update",
             consumes = "application/json")
     public ResponseEntity<?> updateUser(
             @RequestBody
@@ -198,7 +198,7 @@ public class UserController {
      * @param id the primary key of the user you wish to delete
      * @return Status of OK
      */
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/user/{id}/delete")
     public ResponseEntity<?> deleteUserById(
             @PathVariable
             long id)
@@ -219,7 +219,7 @@ public class UserController {
             response = User.class)
     @ApiResponses(value = {@ApiResponse(code = 200, message = "User found", response = User.class),
             @ApiResponse(code = 404, message = "User not found", response = ErrorDetail.class)})
-    @GetMapping(value = "/getuserinfo",
+    @GetMapping(value = "/user",
             produces = {"application/json"})
     public ResponseEntity<?> getCurrentUserInfo(Authentication authentication)
     {
