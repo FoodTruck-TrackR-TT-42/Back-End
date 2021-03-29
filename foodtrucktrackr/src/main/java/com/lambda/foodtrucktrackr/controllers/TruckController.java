@@ -56,7 +56,7 @@ public class TruckController {
     }
 
     @ApiOperation(value = "Adds a new truck to the database", response = Truck.class)
-    @PostMapping(value = "/truck", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/truck/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addNewTruck(@Valid @RequestBody Truck newtruck) throws URISyntaxException {
         newtruck.setTruckid(0);
         newtruck = truckService.save(newtruck);
@@ -72,7 +72,7 @@ public class TruckController {
     }
 
     @ApiOperation(value = "Updates an existing truck", response = Truck.class)
-    @PutMapping(value = "/truck/{truckid}",
+    @PutMapping(value = "/truck/{truckid}/update",
             consumes = "application/json",
             produces = "application/json")
     public ResponseEntity<?> updateTruck(
