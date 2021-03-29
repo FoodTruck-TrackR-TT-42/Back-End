@@ -58,7 +58,7 @@ GET
 
 ## Add New Menu Item
 POST
-/api/menus/menuitem
+/api/menus/menuitem/add
 
 ## Retrieve a Menu Item based off of its id
 GET
@@ -66,7 +66,7 @@ GET
 
 ## Update an existing menu item
 PUT
-/api/menus/menuitem/{menuitemid}
+/api/menus/menuitem/{menuitemid}/update
 
 
 ## FOR ADDITIONAL INFO ON THESE ENDPOINTS
