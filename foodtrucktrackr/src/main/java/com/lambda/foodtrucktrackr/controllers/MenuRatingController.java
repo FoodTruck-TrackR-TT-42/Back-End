@@ -34,7 +34,7 @@ public class MenuRatingController {
 
 
     @ApiOperation(value = "Add a new menu rating", response = MenuRating.class)
-    @PostMapping(value = "/menurating/add", produces = "application/json")
+    @PostMapping(value = "/menurating/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addNewMenuRating(
             @Valid
             @RequestBody

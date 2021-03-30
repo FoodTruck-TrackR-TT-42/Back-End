@@ -45,6 +45,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers("/api/menus/menuitem/**").authenticated()
                 .antMatchers("/api/users/**").authenticated()
                 .antMatchers("/api/menuratings/**").authenticated()
+                .antMatchers("/api/truckratings/**").authenticated()
                 .anyRequest().denyAll()
                 .and()
                 .exceptionHandling()
