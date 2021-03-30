@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.MenuItem;
 import com.lambda.foodtrucktrackr.services.MenuItemService;
 import io.swagger.annotations.ApiOperation;
@@ -27,8 +30,11 @@ public class MenuItemsController {
             @ApiParam(value = "menu item id", required = true, example = "37")
             @PathVariable
             long menuitemid) {
+        String filter = "menuitemid,itemname,itemprice,trucks[truck[truckname]],menuitemphotos[imageurl],menuratings[score],menuratings[user[username]]";
+        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(),
+                filter);
         MenuItem mi = menuItemService.findMenuitemById(menuitemid);
-        return new ResponseEntity<>(mi, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, mi), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Add a new menu item", response = MenuItem.class)

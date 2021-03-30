@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.ErrorDetail;
 import com.lambda.foodtrucktrackr.models.Truck;
 import com.lambda.foodtrucktrackr.services.TruckService;
@@ -41,8 +44,10 @@ public class TruckController {
             @ApiParam(value = "truck id", required = true, example = "19")
             @PathVariable
             long truckid) {
+        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         Truck t = truckService.findTruckById(truckid);
-        return new ResponseEntity<>(t, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, t), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retrieves a list of trucks with the given cuisineType", response = Truck.class, responseContainer = "List")
