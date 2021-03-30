@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.MenuItem;
 import com.lambda.foodtrucktrackr.models.MenuRating;
 import com.lambda.foodtrucktrackr.services.MenuRatingService;
@@ -22,6 +25,9 @@ public class MenuRatingController {
     @Autowired
     private MenuRatingService menuRatingService;
 
+    String filter = "menuratingid,score,menuitem[menuitemid,itemname,itemprice],user[userid,username]";
+    ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+
     @ApiOperation(value = "Retrieves a menu rating based off its id", response = MenuItem.class)
     @GetMapping(value = "/menurating/{menuratingid}", produces = "application/json")
     public ResponseEntity<?> findMenuRatingById(
@@ -29,7 +35,7 @@ public class MenuRatingController {
             @PathVariable
             long menuratingid) {
         MenuRating mr = menuRatingService.findMenuratingById(menuratingid);
-        return new ResponseEntity<>(mr, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, mr), HttpStatus.OK);
     }
 
 
@@ -49,6 +55,6 @@ public class MenuRatingController {
                 .toUri();
         responseHeaders.setLocation(newRatingURI);
 
-        return new ResponseEntity<>(newMenuRating, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, newMenuRating), responseHeaders, HttpStatus.CREATED);
     }
 }

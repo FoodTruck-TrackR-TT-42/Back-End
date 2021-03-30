@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.ErrorDetail;
 import com.lambda.foodtrucktrackr.models.User;
 import com.lambda.foodtrucktrackr.services.UserService;
@@ -26,6 +29,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    String filter = "userid,username,email,trucks[truck[truckid,truckname]],menuratings[menurating[menuratingid,score,menuitem[menuitemid]]],truckratings[truckrating[truckratingid,score,truck[truckid]]]";
+    ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+
     /**
      * Returns a list of all users
      * <br>Example: <a href="http://localhost:2019/users/users">http://localhost:2019/users/users</a>
@@ -39,8 +45,7 @@ public class UserController {
     public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();
-        return new ResponseEntity<>(myUsers,
-                HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, myUsers), HttpStatus.OK);
     }
 
     /**
@@ -62,7 +67,7 @@ public class UserController {
             Long userId)
     {
         User u = userService.findUserById(userId);
-        return new ResponseEntity<>(u,
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, u),
                 HttpStatus.OK);
     }
 
@@ -81,7 +86,7 @@ public class UserController {
             String userName)
     {
         User u = userService.findByName(userName);
-        return new ResponseEntity<>(u,
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, u),
                 HttpStatus.OK);
     }
 
@@ -100,7 +105,7 @@ public class UserController {
             String userName)
     {
         List<User> u = userService.findByNameContaining(userName);
-        return new ResponseEntity<>(u,
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, u),
                 HttpStatus.OK);
     }
 
@@ -224,7 +229,7 @@ public class UserController {
     public ResponseEntity<?> getCurrentUserInfo(Authentication authentication)
     {
         User u = userService.findByName(authentication.getName());
-        return new ResponseEntity<>(u,
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, u),
                 HttpStatus.OK);
     }
 }

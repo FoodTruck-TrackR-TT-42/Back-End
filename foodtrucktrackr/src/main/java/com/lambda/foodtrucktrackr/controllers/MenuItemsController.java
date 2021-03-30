@@ -30,7 +30,7 @@ public class MenuItemsController {
             @ApiParam(value = "menu item id", required = true, example = "37")
             @PathVariable
             long menuitemid) {
-        String filter = "menuitemid,itemname,itemprice,trucks[truck[truckname]],menuitemphotos[imageurl],menuratings[score],menuratings[user[username]]";
+        String filter = "menuitemid,itemname,itemprice,trucks[truck[truckid,truckname]],menuitemphotos[menuitemphotoid,imageurl],menuratings[menuratingid,score,user[userid]]";
         ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(),
                 filter);
         MenuItem mi = menuItemService.findMenuitemById(menuitemid);
@@ -43,6 +43,10 @@ public class MenuItemsController {
             @Valid
             @RequestBody
             MenuItem newMenuItem) throws URISyntaxException {
+        String filter = "menuitemid,itemname,itemprice,trucks[truck[truckid,truckname]],menuitemphotos[menuitemphotoid,imageurl],menuratings[menuratingid,score,user[userid]]";
+        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(),
+                filter);
+
         newMenuItem.setMenuitemid(0);
         newMenuItem = menuItemService.save(newMenuItem);
 
@@ -53,7 +57,7 @@ public class MenuItemsController {
                 .toUri();
         responseHeaders.setLocation(newMenuURI);
 
-        return new ResponseEntity<>(newMenuItem, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, newMenuItem), responseHeaders, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Updates an existing menu item", response = MenuItem.class)

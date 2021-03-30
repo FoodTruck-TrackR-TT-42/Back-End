@@ -28,12 +28,17 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
+    String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+    ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+
     @ApiOperation(value = "Returns a list of all Trucks", response = Truck.class, responseContainer = "List")
     @GetMapping(value = "/trucks",
             produces = "application/json")
     public ResponseEntity<?> listAllTrucks() {
+//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         List<Truck> trucks = truckService.findAll();
-        return new ResponseEntity<>(trucks, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, trucks), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retrieves a truck based off its truck id", response = Truck.class)
@@ -44,8 +49,8 @@ public class TruckController {
             @ApiParam(value = "truck id", required = true, example = "19")
             @PathVariable
             long truckid) {
-        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
-        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         Truck t = truckService.findTruckById(truckid);
         return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, t), HttpStatus.OK);
     }
@@ -56,8 +61,10 @@ public class TruckController {
             @ApiParam(value = "cuisine type", required = true, example = "Salvadoran")
             @PathVariable
             String cuisineType) {
+//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         List<Truck> trucks = truckService.findTrucksByCuisineType(cuisineType);
-        return new ResponseEntity<>(trucks, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, trucks), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Adds a new truck to the database", response = Truck.class)
