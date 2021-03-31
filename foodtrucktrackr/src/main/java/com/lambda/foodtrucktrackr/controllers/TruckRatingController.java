@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.TruckRating;
 import com.lambda.foodtrucktrackr.services.TruckRatingService;
 import io.swagger.annotations.ApiOperation;
@@ -20,7 +23,10 @@ import java.net.URISyntaxException;
 public class TruckRatingController {
     @Autowired
     private TruckRatingService truckRatingService;
-    
+
+    String filter = "truckratingid,score,truck[truckid,truckname],user[userid,username]";
+    ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+
     @ApiOperation(value = "Retrieves a truck rating based off its id", response = TruckRating.class)
     @GetMapping(value = "/truckrating/{truckratingid}", produces = "application/json")
     public ResponseEntity<?> findTruckRatingById(
@@ -28,11 +34,11 @@ public class TruckRatingController {
             @PathVariable
             long truckratingid) {
         TruckRating tr = truckRatingService.findTruckratingById(truckratingid);
-        return new ResponseEntity<>(tr, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, tr), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Add a new truck rating", response = TruckRating.class)
-    @PostMapping(value = "/truckrating/add", produces = "application/json")
+    @PostMapping(value = "/truckrating/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addNewTruckRating(
             @Valid
             @RequestBody
@@ -47,6 +53,6 @@ public class TruckRatingController {
                 .toUri();
         responseHeaders.setLocation(newRatingURI);
 
-        return new ResponseEntity<>(newTruckRating, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, newTruckRating), responseHeaders, HttpStatus.CREATED);
     }
 }

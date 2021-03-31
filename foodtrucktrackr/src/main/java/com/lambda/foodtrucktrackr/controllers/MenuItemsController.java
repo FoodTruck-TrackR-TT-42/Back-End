@@ -1,5 +1,8 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.bohnman.squiggly.Squiggly;
+import com.github.bohnman.squiggly.util.SquigglyUtils;
 import com.lambda.foodtrucktrackr.models.MenuItem;
 import com.lambda.foodtrucktrackr.services.MenuItemService;
 import io.swagger.annotations.ApiOperation;
@@ -21,6 +24,9 @@ public class MenuItemsController {
     @Autowired
     private MenuItemService menuItemService;
 
+    String filter = "menuitemid,itemname,itemprice,trucks[truck[truckid,truckname]],menuitemphotos[menitemphotoid,imageurl],menuratings[menuratingid,score,user[userid,username]]";
+    ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
+
     @ApiOperation(value = "Retrieves a menu item based off its id", response = MenuItem.class)
     @GetMapping(value = "/menuitem/{menuitemid}", produces = "application/json")
     public ResponseEntity<?> findMenuItemById(
@@ -28,7 +34,7 @@ public class MenuItemsController {
             @PathVariable
             long menuitemid) {
         MenuItem mi = menuItemService.findMenuitemById(menuitemid);
-        return new ResponseEntity<>(mi, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, mi), HttpStatus.OK);
     }
 
     @ApiOperation(value = "Add a new menu item", response = MenuItem.class)
@@ -37,6 +43,7 @@ public class MenuItemsController {
             @Valid
             @RequestBody
             MenuItem newMenuItem) throws URISyntaxException {
+
         newMenuItem.setMenuitemid(0);
         newMenuItem = menuItemService.save(newMenuItem);
 
@@ -47,7 +54,7 @@ public class MenuItemsController {
                 .toUri();
         responseHeaders.setLocation(newMenuURI);
 
-        return new ResponseEntity<>(newMenuItem, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, newMenuItem), responseHeaders, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Updates an existing menu item", response = MenuItem.class)
@@ -60,6 +67,6 @@ public class MenuItemsController {
         updatedMenuItem.setMenuitemid(menuitemid);
         updatedMenuItem = menuItemService.save(updatedMenuItem);
 
-        return new ResponseEntity<>(updatedMenuItem, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, updatedMenuItem), HttpStatus.OK);
     }
 }

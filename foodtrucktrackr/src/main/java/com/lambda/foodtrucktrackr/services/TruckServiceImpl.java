@@ -23,6 +23,9 @@ public class TruckServiceImpl  implements TruckService {
     @Autowired
     private MenuItemService menuItemService;
 
+    @Autowired
+    private TruckRatingService truckRatingService;
+
     @Override
     public List<Truck> findAll() {
         List<Truck> trucks = new ArrayList<>();
@@ -83,7 +86,7 @@ public class TruckServiceImpl  implements TruckService {
 
         newTruck.getTruckratings().clear();
         for (TruckRating tr : truck.getTruckratings()) {
-            newTruck.getTruckratings().add(tr);
+            newTruck.getTruckratings().add(truckRatingService.findTruckratingById(tr.getTruckratingid()));
         }
 
         return truckrepos.save(newTruck);

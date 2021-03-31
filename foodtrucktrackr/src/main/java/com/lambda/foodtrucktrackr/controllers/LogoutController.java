@@ -1,5 +1,6 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,7 @@ public class LogoutController {
      * @param request the Http request from which we find the authorization header which includes the token to be removed
      */
     // yes, both endpoints are mapped to the same Java method! So, either one will work.
+    @ApiOperation(value = "Logout the current user")
     @GetMapping(value = {"/oauth/revoke-token", "/logout"},
             produces = "application/json")
     public ResponseEntity<?> logoutSelf(HttpServletRequest request)
