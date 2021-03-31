@@ -35,8 +35,6 @@ public class TruckController {
     @GetMapping(value = "/trucks",
             produces = "application/json")
     public ResponseEntity<?> listAllTrucks() {
-//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
-//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         List<Truck> trucks = truckService.findAll();
         return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, trucks), HttpStatus.OK);
     }
@@ -49,8 +47,6 @@ public class TruckController {
             @ApiParam(value = "truck id", required = true, example = "19")
             @PathVariable
             long truckid) {
-//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
-//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         Truck t = truckService.findTruckById(truckid);
         return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, t), HttpStatus.OK);
     }
@@ -61,8 +57,6 @@ public class TruckController {
             @ApiParam(value = "cuisine type", required = true, example = "Salvadoran")
             @PathVariable
             String cuisineType) {
-//        String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
-//        ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
         List<Truck> trucks = truckService.findTrucksByCuisineType(cuisineType);
         return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, trucks), HttpStatus.OK);
     }
@@ -80,7 +74,7 @@ public class TruckController {
                 .toUri();
         responseHeaders.setLocation(newTruckURI);
 
-        return new ResponseEntity<>(newtruck, responseHeaders, HttpStatus.CREATED);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, newtruck), responseHeaders, HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Updates an existing truck", response = Truck.class)
