@@ -84,32 +84,30 @@ public class SeedData implements CommandLineRunner {
                         r2));
         u2 = userService.save(u2);
 
-        // menurating
-        MenuRating mr1 = new MenuRating(4);
-        mr1.setUser(u2);
-        u2.getMenuratings().add(mr1);
-        mr1 = menuRatingService.save(mr1);
-
         // menuitems
         MenuItem mi1 = new MenuItem("BLT", 7.99);
-        mi1.getMenuratings().add(mr1);
+//        mi1.getMenuratings().add(mr1);
         mi1 = menuItemService.save(mi1);
-        mr1.setMenuitem(mi1);
-        mr1 = menuRatingService.save(mr1);
+//        mr1.setMenuitem(mi1);
+//        mr1 = menuRatingService.save(mr1);
 
-        // truckrating
-        TruckRating tr1 = new TruckRating(5);
-        tr1.setUser(u2);
-        u2.getTruckratings().add(tr1);
-        tr1 = truckRatingService.save(tr1);
+        // menurating
+        MenuRating mr1 = new MenuRating(4, mi1, u2);
+//        mr1.setUser(u2);
+//        u2.getMenuratings().add(mr1);
+        mr1 = menuRatingService.save(mr1);
 
         // truck
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
         t1.getMenus().add(new Menu(t1, mi1));
         t1.getUsers().add(new UserTrucks(u1, t1));
-        t1.getTruckratings().add(tr1);
+//        t1.getTruckratings().add(tr1);
         t1 = truckService.save(t1);
-        tr1.setTruck(t1);
+//        tr1.setTruck(t1);
+//        tr1 = truckRatingService.save(tr1);
+
+        // truckrating
+        TruckRating tr1 = new TruckRating(5, t1, u2);
         tr1 = truckRatingService.save(tr1);
     }
 }

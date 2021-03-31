@@ -26,8 +26,10 @@ public class TruckRating extends Auditable {
     public TruckRating() {
     }
 
-    public TruckRating(int score) {
+    public TruckRating(int score, Truck truck, User user) {
         this.score = score;
+        this.truck = truck;
+        this.user = user;
     }
 
     public long getTruckratingid() {
