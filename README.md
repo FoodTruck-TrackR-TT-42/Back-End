@@ -42,11 +42,11 @@ GET
 GET
 /api/trucks/truck/{truckid}
 
-## Add A new Truck
+### Add A new Truck
 POST
 /api/trucks/truck/add
 
-## Update Existing User
+### Update Existing User
 PUT
 /api/trucks/truck/{truckid}/update
 
@@ -54,17 +54,17 @@ PUT
 GET
 /api/trucks/cuisinetype/{cuisineType}
 
-### MENU ITEMS
+## MENU ITEMS
 
-## Add New Menu Item
+### Add New Menu Item
 POST
 /api/menus/menuitem/add
 
-## Retrieve a Menu Item based off of its id
+### Retrieve a Menu Item based off of its id
 GET
 /api/menus/menuitem/{menuitemid}
 
-## Update an existing menu item
+### Update an existing menu item
 PUT
 /api/menus/menuitem/{menuitemid}/update
 
