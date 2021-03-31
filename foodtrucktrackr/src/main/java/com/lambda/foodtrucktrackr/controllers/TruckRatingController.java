@@ -38,7 +38,7 @@ public class TruckRatingController {
     }
 
     @ApiOperation(value = "Add a new truck rating", response = TruckRating.class)
-    @PostMapping(value = "/truckrating/add", produces = "application/json")
+    @PostMapping(value = "/truckrating/add", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addNewTruckRating(
             @Valid
             @RequestBody

@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    String filter = "userid,username,email,trucks[truck[truckid,truckname]],menuratings[menurating[menuratingid,score,menuitem[menuitemid]]],truckratings[truckrating[truckratingid,score,truck[truckid]]]";
+    String filter = "userid,username,email,trucks[truck[truckid,truckname]],menuratings[menuratingid,score,menuitem[menuitemid]],truckratings[truckratingid,score,truck[truckid]]";
     ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
 
     /**

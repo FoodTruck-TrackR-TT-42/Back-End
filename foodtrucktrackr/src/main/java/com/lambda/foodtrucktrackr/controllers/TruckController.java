@@ -28,7 +28,7 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
-    String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckrating[truckratingid,score]]";
+    String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemprice]],users[user[userid]],truckratings[truckratingid,score,user[userid]]";
     ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
 
     @ApiOperation(value = "Returns a list of all Trucks", response = Truck.class, responseContainer = "List")
