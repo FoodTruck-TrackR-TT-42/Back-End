@@ -26,8 +26,10 @@ public class MenuRating extends Auditable {
     public MenuRating() {
     }
 
-    public MenuRating(int score) {
+    public MenuRating(int score, MenuItem menuitem, User user) {
         this.score = score;
+        this.menuitem = menuitem;
+        this.user = user;
     }
 
     public long getMenuratingid() {
