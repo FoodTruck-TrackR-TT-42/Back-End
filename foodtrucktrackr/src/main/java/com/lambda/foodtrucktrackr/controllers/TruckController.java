@@ -28,7 +28,7 @@ public class TruckController {
     @Autowired
     private TruckService truckService;
 
-    String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemdescription,itemprice]],users[user[userid, roles[role[name]]]],truckratings[truckratingid,score,user[userid]]";
+    String filter = "truckid,truckname,cuisinetype,menus[menuitem[menuitemid,itemname,itemdescription,itemprice]],users[user[userid,roles[role[name]]]],truckratings[truckratingid,score,user[userid]],currentlocation[latitude,longitude,departuretime]";
     ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
 
     @ApiOperation(value = "Returns a list of all Trucks", response = Truck.class, responseContainer = "List")
@@ -87,6 +87,6 @@ public class TruckController {
         updatedTruck.setTruckid(truckid);
         updatedTruck = truckService.save(updatedTruck);
 
-        return new ResponseEntity<>(updatedTruck, HttpStatus.OK);
+        return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, updatedTruck), HttpStatus.OK);
     }
 }

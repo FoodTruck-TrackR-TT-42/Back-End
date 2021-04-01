@@ -15,12 +15,13 @@ public class TruckLocation extends Auditable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long trucklocationid;
 
+    @ApiModelProperty(name = "latitude", value = "the truck's latitude", required = true)
+    @Column(nullable = false)
+    private String latitude;
+
     @ApiModelProperty(name = "longitude", value = "the truck's longitude", required = true)
     @Column(nullable = false)
     private String longitude;
-
-    @ApiModelProperty(name = "latitude", value = "the truck's latitude", required = true)
-    private String latitude;
 
     @ApiModelProperty(name = "departure time", value = "the time the truck will be leaving this location")
     private String departuretime;
@@ -31,9 +32,15 @@ public class TruckLocation extends Auditable {
     public TruckLocation() {
     }
 
-    public TruckLocation(String longitude, String latitude, String departuretime, Truck truck) {
-        this.longitude = longitude;
+    public TruckLocation(String latitude, String longitude, String departuretime) {
         this.latitude = latitude;
+        this.longitude = longitude;
+        this.departuretime = departuretime;
+    }
+
+    public TruckLocation(String latitude, String longitude, String departuretime, Truck truck) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.departuretime = departuretime;
         this.truck = truck;
     }

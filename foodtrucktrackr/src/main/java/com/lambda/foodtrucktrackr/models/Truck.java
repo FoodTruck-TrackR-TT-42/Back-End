@@ -37,7 +37,7 @@ public class Truck extends Auditable {
     private List<TruckRating> truckratings = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "trucklocationid")
+    @JoinColumn(name = "truck")
     private TruckLocation currentlocation;
 
     public Truck() {

@@ -42,6 +42,9 @@ public class SeedData implements CommandLineRunner {
     @Autowired
     TruckRatingService truckRatingService;
 
+    @Autowired
+    TruckLocationService truckLocationService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -86,25 +89,23 @@ public class SeedData implements CommandLineRunner {
 
         // menuitems
         MenuItem mi1 = new MenuItem("BLT", "Thick-cut, applewood-smoked bacon with Bibb lettuce and sliced tomato", 7.99);
-//        mi1.getMenuratings().add(mr1);
         mi1 = menuItemService.save(mi1);
-//        mr1.setMenuitem(mi1);
-//        mr1 = menuRatingService.save(mr1);
+
 
         // menurating
         MenuRating mr1 = new MenuRating(4, mi1, u2);
-//        mr1.setUser(u2);
-//        u2.getMenuratings().add(mr1);
         mr1 = menuRatingService.save(mr1);
 
         // truck
         Truck t1 = new Truck("Lunch Box", "Sandwiches");
         t1.getMenus().add(new Menu(t1, mi1));
         t1.getUsers().add(new UserTrucks(u1, t1));
-//        t1.getTruckratings().add(tr1);
         t1 = truckService.save(t1);
-//        tr1.setTruck(t1);
-//        tr1 = truckRatingService.save(tr1);
+
+        // trucklocation
+        TruckLocation tl1 = new TruckLocation("40.712118","-74.007284","10PM");
+        tl1 = truckLocationService.save(tl1);
+        t1.setCurrentlocation(tl1);
 
         // truckrating
         TruckRating tr1 = new TruckRating(5, t1, u2);
