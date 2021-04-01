@@ -1,10 +1,7 @@
 package com.lambda.foodtrucktrackr.services;
 
 import com.lambda.foodtrucktrackr.exceptions.ResourceNotFoundException;
-import com.lambda.foodtrucktrackr.models.MenuRating;
-import com.lambda.foodtrucktrackr.models.Role;
-import com.lambda.foodtrucktrackr.models.User;
-import com.lambda.foodtrucktrackr.models.UserRoles;
+import com.lambda.foodtrucktrackr.models.*;
 import com.lambda.foodtrucktrackr.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +27,13 @@ public class UserServiceImpl implements UserService {
     private RoleService roleService;
 
     @Autowired
+    private TruckService truckService;
+
+    @Autowired
     private MenuRatingService menuRatingService;
+
+    @Autowired
+    private TruckRatingService truckRatingService;
 
     @Autowired
     private HelperFunctions helperFunctions;
@@ -170,6 +173,27 @@ public class UserServiceImpl implements UserService {
                     currentUser.getRoles()
                             .add(new UserRoles(currentUser,
                                     addRole));
+                }
+            }
+            if (user.getTrucks().size() > 0) {
+                currentUser.getTrucks().clear();
+                for (UserTrucks ut : user.getTrucks()) {
+                    Truck addTruck = truckService.findTruckById(ut.getTruck().getTruckid());
+                    currentUser.getTrucks().add(new UserTrucks(currentUser, addTruck));
+                }
+            }
+            if (user.getMenuratings().size() > 0) {
+                currentUser.getMenuratings().clear();
+                for (MenuRating mr : user.getMenuratings()) {
+                    MenuRating addMR = menuRatingService.findMenuratingById(mr.getMenuratingid());
+                    currentUser.getMenuratings().add(addMR);
+                }
+            }
+            if (user.getTruckratings().size() > 0) {
+                currentUser.getTruckratings().clear();
+                for (TruckRating tr : user.getTruckratings()) {
+                    TruckRating addTR = truckRatingService.findTruckratingById(tr.getTruckratingid());
+                    currentUser.getTruckratings().add(addTR);
                 }
             }
 

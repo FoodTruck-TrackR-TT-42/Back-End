@@ -21,6 +21,9 @@ public class MenuItem extends Auditable {
     @Column(nullable = false)
     private String itemname;
 
+    @ApiModelProperty(name = "item description", value = "a description of this menu item", example = "cucumber, avocado, imitation crab")
+    private String itemdescription;
+
     @ApiModelProperty(name = "item price", value = "the price of this menu item", example = "7.99")
     private double itemprice;
 
@@ -39,8 +42,9 @@ public class MenuItem extends Auditable {
     public MenuItem() {
     }
 
-    public MenuItem(String itemname, double itemprice) {
+    public MenuItem(String itemname, String itemdescription, double itemprice) {
         this.itemname = itemname;
+        this.itemdescription = itemdescription;
         this.itemprice = itemprice;
     }
 
@@ -63,6 +67,10 @@ public class MenuItem extends Auditable {
     public double getItemprice() {
         return itemprice;
     }
+
+    public String getItemdescription() { return itemdescription; }
+
+    public void setItemdescription(String itemdescription) { this.itemdescription = itemdescription; }
 
     public void setItemprice(double itemprice) {
         this.itemprice = itemprice;

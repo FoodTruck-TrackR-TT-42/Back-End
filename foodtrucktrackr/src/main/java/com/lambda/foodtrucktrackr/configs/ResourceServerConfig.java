@@ -37,7 +37,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                 .antMatchers("/useremails/**", "/logout").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/users/**").hasAnyRole("OPERATOR")
                 .antMatchers(HttpMethod.DELETE, "/api/users/**").hasAnyRole("OPERATOR")
-                .antMatchers(HttpMethod.PATCH, "/api/users/**").hasAnyRole("OPERATOR")
+                .antMatchers(HttpMethod.PATCH, "/api/users/**").authenticated()
                 .antMatchers(HttpMethod.PUT, "/api/users/**").hasAnyRole("OPERATOR")
                 .antMatchers(HttpMethod.GET, "/api/trucks/**").authenticated()
                 .antMatchers(HttpMethod.POST, "/api/trucks/**").hasAnyRole("OPERATOR")

@@ -49,6 +49,7 @@ public class MenuItemServiceImpl implements MenuItemService {
         }
 
         newItem.setItemname(menuitem.getItemname());
+        newItem.setItemdescription(menuitem.getItemdescription());
         newItem.setItemprice(menuitem.getItemprice());
 
         newItem.getMenuitemphotos().clear();
