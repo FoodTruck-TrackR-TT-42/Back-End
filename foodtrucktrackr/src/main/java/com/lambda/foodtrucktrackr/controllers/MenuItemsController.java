@@ -1,20 +1,29 @@
 package com.lambda.foodtrucktrackr.controllers;
 
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.bohnman.squiggly.Squiggly;
 import com.github.bohnman.squiggly.util.SquigglyUtils;
+import com.lambda.foodtrucktrackr.handlers.FileUploadUtil;
 import com.lambda.foodtrucktrackr.models.MenuItem;
 import com.lambda.foodtrucktrackr.services.MenuItemService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.tomcat.util.http.fileupload.FileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.multipart.MultipartFile;
+
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -35,6 +44,20 @@ public class MenuItemsController {
             long menuitemid) {
         MenuItem mi = menuItemService.findMenuitemById(menuitemid);
         return new ResponseEntity<>(SquigglyUtils.objectify(objectMapper, mi), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "menu item photo")
+    @PostMapping("/menuitem/{menuitemid}/add/image")
+    public RedirectView saveMenuItemPhoto (MenuItem menuItem,
+                                           @RequestParam ("image")MultipartFile multipartFile) throws IOException {
+        String filename = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        menuItem.setMenuitemphotos(filename);
+
+        MenuItem savedMenuItem = menuItemService.save(menuItem);
+        String uploadDir = "menuitem-photos/" + savedMenuItem.getMenuitemid();
+        FileUploadUtil.saveFile(uploadDir, filename, multipartFile);
+
+        return new RedirectView("/menuitem/{menuitemid}", true);
     }
 
     @ApiOperation(value = "Add a new menu item", response = MenuItem.class)

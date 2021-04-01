@@ -51,11 +51,11 @@ public class MenuItemServiceImpl implements MenuItemService {
         newItem.setItemname(menuitem.getItemname());
         newItem.setItemprice(menuitem.getItemprice());
 
-        newItem.getMenuitemphotos().clear();
-        for (MenuItemPhoto mip : menuitem.getMenuitemphotos()) {
-            // when you get to this one, do the same thing as below, with menuItemPhotoService
-            newItem.getMenuitemphotos().add(mip);
-        }
+//        newItem.getMenuitemphotos().clear();
+//        for (MenuItemPhoto mip : menuitem.getMenuitemphotos()) {
+//            // when you get to this one, do the same thing as below, with menuItemPhotoService
+//            newItem.getMenuitemphotos().add(mip);
+//        }
 
         newItem.getMenuratings().clear();
         for (MenuRating mr : menuitem.getMenuratings()) {

@@ -24,13 +24,16 @@ public class MenuItem extends Auditable {
     @ApiModelProperty(name = "item price", value = "the price of this menu item", example = "7.99")
     private double itemprice;
 
+    @Column(nullable = true, length = 64)
+    private String menuitemphotos;
+
     @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
     private List<Menu> trucks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
-    private List<MenuItemPhoto> menuitemphotos = new ArrayList<>();
+//    @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
+//    private List<MenuItemPhoto> menuitemphotos = new ArrayList<>();
 
     @OneToMany(mappedBy = "menuitem", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "menuitem", allowSetters = true)
@@ -68,6 +71,14 @@ public class MenuItem extends Auditable {
         this.itemprice = itemprice;
     }
 
+    public String getMenuitemphotos() {
+        return menuitemphotos;
+    }
+
+    public void setMenuitemphotos(String menuitemphotos) {
+        this.menuitemphotos = menuitemphotos;
+    }
+
     public List<Menu> getTrucks() {
         return trucks;
     }
@@ -76,13 +87,13 @@ public class MenuItem extends Auditable {
         this.trucks = trucks;
     }
 
-    public List<MenuItemPhoto> getMenuitemphotos() {
-        return menuitemphotos;
-    }
-
-    public void setMenuitemphotos(List<MenuItemPhoto> menuitemphotos) {
-        this.menuitemphotos = menuitemphotos;
-    }
+//    public List<MenuItemPhoto> getMenuitemphotos() {
+//        return menuitemphotos;
+//    }
+//
+//    public void setMenuitemphotos(List<MenuItemPhoto> menuitemphotos) {
+//        this.menuitemphotos = menuitemphotos;
+//    }
 
     public List<MenuRating> getMenuratings() {
         return menuratings;
