@@ -24,7 +24,7 @@ public class MenuItemsController {
     @Autowired
     private MenuItemService menuItemService;
 
-    String filter = "menuitemid,itemname,itemprice,trucks[truck[truckid,truckname]],menuitemphotos[menitemphotoid,imageurl],menuratings[menuratingid,score,user[userid,username]]";
+    String filter = "menuitemid,itemname,itemdescription,itemprice,trucks[truck[truckid,truckname]],menuitemphotos[menitemphotoid,imageurl],menuratings[menuratingid,score,user[userid,username]]";
     ObjectMapper objectMapper = Squiggly.init(new ObjectMapper(), filter);
 
     @ApiOperation(value = "Retrieves a menu item based off its id", response = MenuItem.class)

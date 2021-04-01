@@ -85,7 +85,7 @@ public class SeedData implements CommandLineRunner {
         u2 = userService.save(u2);
 
         // menuitems
-        MenuItem mi1 = new MenuItem("BLT", 7.99);
+        MenuItem mi1 = new MenuItem("BLT", "Thick-cut, applewood-smoked bacon with Bibb lettuce and sliced tomato", 7.99);
 //        mi1.getMenuratings().add(mr1);
         mi1 = menuItemService.save(mi1);
 //        mr1.setMenuitem(mi1);
