@@ -36,6 +36,10 @@ public class Truck extends Auditable {
     @JsonIgnoreProperties(value = "truck", allowSetters = true)
     private List<TruckRating> truckratings = new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "trucklocationid")
+    private TruckLocation currentlocation;
+
     public Truck() {
     }
 
@@ -90,5 +94,13 @@ public class Truck extends Auditable {
 
     public void setTruckratings(List<TruckRating> truckratings) {
         this.truckratings = truckratings;
+    }
+
+    public TruckLocation getCurrentlocation() {
+        return currentlocation;
+    }
+
+    public void setCurrentlocation(TruckLocation currentlocation) {
+        this.currentlocation = currentlocation;
     }
 }
